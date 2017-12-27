@@ -1,6 +1,6 @@
 const baseURL = "https://hacker-news.firebaseio.com/v0";
 
-export function storyIdsRequested() {
+export function storyIdsRequested(pageSize) {
   return dispatch => {
     dispatch({
       type: "STORY_IDS_REQUESTED"
@@ -8,7 +8,10 @@ export function storyIdsRequested() {
 
     return fetch(`${baseURL}/topstories.json`)
       .then(response => response.json())
-      .then(json => dispatch(storyIdsReceived(json)));
+      .then(ids => {
+        dispatch(storyIdsReceived(ids));
+        dispatch(storiesRequested(ids.slice(0, pageSize)));
+      });
   };
 }
 

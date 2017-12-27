@@ -1,7 +1,7 @@
 import { createReducer } from "./createReducer";
 
 const initialState = {
-  topStories: { inProgress: false, ids: [], stories: [] }
+  topStories: { inProgress: false, isRefreshing: false, ids: [], stories: [] }
 };
 
 export default createReducer(initialState, {
@@ -9,7 +9,13 @@ export default createReducer(initialState, {
     const { topStories } = state;
     const newState = {
       ...state,
-      topStories: { ...topStories, inProgress: true, ids: [] }
+      topStories: {
+        ...topStories,
+        inProgress: true,
+        isRefreshing: true,
+        ids: [],
+        stories: []
+      }
     };
     return newState;
   },
@@ -17,7 +23,12 @@ export default createReducer(initialState, {
     const { topStories } = state;
     const newState = {
       ...state,
-      topStories: { ...topStories, inProgress: false, ids: action.ids }
+      topStories: {
+        ...topStories,
+        inProgress: false,
+        isRefreshing: false,
+        ids: action.ids
+      }
     };
     return newState;
   },
