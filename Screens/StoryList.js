@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Platform, StyleSheet, Text, View, FlatList } from "react-native";
+import { Header } from "react-native-elements";
 import ListSeparator from "../Components/ListSeparator";
 import {
   storyIdsRequested,
   storiesRequested
 } from "../Actions/HackerNewsActions";
+import StoryCard from "../Components/StoryCard";
 
 const pageSize = 20;
 
@@ -51,8 +53,12 @@ class StoryList extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Header
+          backgroundColor={"#FF6829"}
+          style={styles.header}
+          centerComponent={{ text: "HACKERNEWS", style: { color: "#fff" } }}
+        />
         <FlatList
-          ItemSeparatorComponent={ListSeparator}
           keyExtractor={this._keyExtractor}
           data={this.props.stories.stories}
           onEndReachedThreshold={0.5}
@@ -60,9 +66,7 @@ class StoryList extends Component {
           onRefresh={this._refreshStories.bind(this)}
           refreshing={this.props.stories.isRefreshing}
           renderItem={({ item }) => (
-            <View>
-              <Text>{item.title}</Text>
-            </View>
+            <StoryCard story={item} onPress={story => console.log(story)} />
           )}
         />
       </View>
@@ -71,10 +75,11 @@ class StoryList extends Component {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    width: "100%"
+  },
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "#F5FCFF"
   },
   welcome: {
