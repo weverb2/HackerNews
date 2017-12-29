@@ -1,6 +1,7 @@
 import { createReducer } from "./createReducer";
 
 const initialState = {
+  selectedStory: null,
   topStories: { inProgress: false, isRefreshing: false, ids: [], stories: [] }
 };
 
@@ -50,6 +51,13 @@ export default createReducer(initialState, {
         inProgress: false,
         stories: [...stories, ...action.stories]
       }
+    };
+    return newState;
+  },
+  ["STORY_SELECTED"](state, action) {
+    const newState = {
+      ...state,
+      selectedStory: action.story
     };
     return newState;
   }

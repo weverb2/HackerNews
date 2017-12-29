@@ -42,6 +42,13 @@ export function itemsReceived(stories) {
   };
 }
 
+export function storySelected(story) {
+  return {
+    type: "STORY_SELECTED",
+    story
+  };
+}
+
 getItem = id => {
   return fetch(`${baseURL}/item/${id}.json`)
     .then(response => response.json())

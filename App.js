@@ -1,17 +1,37 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
+import { Navigation } from "react-native-navigation";
+
 import configureStore from "./Store/configureStore";
-import StoryList from "./Screens/StoryList";
+import { registerScreens } from "./Screens/registerScreens";
 
 const store = configureStore();
 
-export default class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <StoryList />
-      </Provider>
-    );
+registerScreens(store, Provider);
+
+const navigatorStyle = {
+  statusBarColor: "#FF6829",
+  statusBarTextColorScheme: "light",
+  navigationBarColor: "#FF6829",
+  navBarBackgroundColor: "#FF6829",
+  navBarTextColor: "white",
+  navBarButtonColor: "white",
+  tabBarButtonColor: "red",
+  tabBarSelectedButtonColor: "red",
+  tabBarBackgroundColor: "white",
+  topBarElevationShadowEnabled: false,
+  navBarHideOnScroll: true,
+  tabBarHidden: false,
+  drawUnderTabBar: true
+};
+
+Navigation.startSingleScreenApp({
+  screen: {
+    screen: "hackernews.StoryList",
+    navigatorStyle: navigatorStyle,
+    title: " HackerNews " // Spaces needed or title gets truncated
+  },
+  appStyle: {
+    hideBackButtonTitle: true
   }
-}
+});

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Platform, StyleSheet, Text, View, FlatList } from "react-native";
-import { Header } from "react-native-elements";
 import ListSeparator from "../Components/ListSeparator";
 import {
   storyIdsRequested,
-  storiesRequested
+  storiesRequested,
+  storySelected
 } from "../Actions/HackerNewsActions";
 import StoryCard from "../Components/StoryCard";
 
@@ -50,14 +50,16 @@ class StoryList extends Component {
     if (!inProgress) this.props.requestStories(ids.slice(start, end));
   }
 
+  _handleStoryPressed(story) {
+    this.props.storySelected(story);
+    this.props.navigator.push({
+      screen: "hackernews.StoryViewer"
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Header
-          backgroundColor={"#FF6829"}
-          style={styles.header}
-          centerComponent={{ text: "HACKERNEWS", style: { color: "#fff" } }}
-        />
         <FlatList
           keyExtractor={this._keyExtractor}
           data={this.props.stories.stories}
@@ -66,7 +68,10 @@ class StoryList extends Component {
           onRefresh={this._refreshStories.bind(this)}
           refreshing={this.props.stories.isRefreshing}
           renderItem={({ item }) => (
-            <StoryCard story={item} onPress={story => console.log(story)} />
+            <StoryCard
+              story={item}
+              onPress={this._handleStoryPressed.bind(this)}
+            />
           )}
         />
       </View>
@@ -103,7 +108,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     requestStoryIds: pageSize => dispatch(storyIdsRequested(pageSize)),
-    requestStories: ids => dispatch(storiesRequested(ids))
+    requestStories: ids => dispatch(storiesRequested(ids)),
+    storySelected: story => dispatch(storySelected(story))
   };
 };
 
