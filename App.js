@@ -20,7 +20,7 @@ const navigatorStyle = {
   tabBarSelectedButtonColor: "red",
   tabBarBackgroundColor: "white",
   topBarElevationShadowEnabled: false,
-  navBarHideOnScroll: true,
+  navBarHideOnScroll: false,
   tabBarHidden: false,
   drawUnderTabBar: true
 };
