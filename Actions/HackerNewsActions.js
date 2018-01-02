@@ -1,9 +1,17 @@
 const baseURL = "https://hacker-news.firebaseio.com/v0";
 
+export const ActionTypes = {
+  storyIdsRequested: "STORY_IDS_REQUESTED",
+  storyIdsReceived: "STORY_IDS_RECEIVED",
+  storiesRequested: "STORIES_REQUESTED",
+  itemsReceived: "STORIES_RECEIVED",
+  storySelected: "STORY_SELECTED"
+};
+
 export function storyIdsRequested(pageSize) {
   return dispatch => {
     dispatch({
-      type: "STORY_IDS_REQUESTED"
+      type: ActionTypes.storyIdsRequested
     });
 
     return fetch(`${baseURL}/topstories.json`)
@@ -17,7 +25,7 @@ export function storyIdsRequested(pageSize) {
 
 export function storyIdsReceived(ids) {
   return {
-    type: "STORY_IDS_RECEIVED",
+    type: ActionTypes.storyIdsReceived,
     ids
   };
 }
@@ -25,7 +33,7 @@ export function storyIdsReceived(ids) {
 export function storiesRequested(ids) {
   return dispatch => {
     dispatch({
-      type: "STORIES_REQUESTED",
+      type: ActionTypes.storiesRequested,
       ids
     });
 
@@ -37,14 +45,14 @@ export function storiesRequested(ids) {
 
 export function itemsReceived(stories) {
   return {
-    type: "STORIES_RECEIVED",
+    type: ActionTypes.itemsReceived,
     stories
   };
 }
 
 export function storySelected(story) {
   return {
-    type: "STORY_SELECTED",
+    type: ActionTypes.storySelected,
     story
   };
 }

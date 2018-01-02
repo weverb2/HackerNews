@@ -1,16 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { View, Text, WebView } from "react-native";
+import { StyleSheet, WebView, SafeAreaView } from "react-native";
 
 class StoryViewer extends Component {
   render() {
-    return <WebView source={{ uri: this.props.selectedStory.url }} />;
+    const { theme, selectedStory } = this.props;
+    return (
+      <SafeAreaView style={[styles.container, theme.safeArea]}>
+        <WebView source={{ uri: selectedStory.url }} />
+      </SafeAreaView>
+    );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F5FCFF"
+  }
+});
 
 const mapStateToProps = state => {
   return {
-    selectedStory: state.HackerNewsReducer.selectedStory
+    selectedStory: state.HackerNewsReducer.selectedStory,
+    theme: state.StyleReducer.theme
   };
 };
 

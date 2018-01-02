@@ -16,13 +16,8 @@ const navigatorStyle = {
   navBarBackgroundColor: "#FF6829",
   navBarTextColor: "white",
   navBarButtonColor: "white",
-  tabBarButtonColor: "red",
-  tabBarSelectedButtonColor: "red",
-  tabBarBackgroundColor: "white",
   topBarElevationShadowEnabled: false,
-  navBarHideOnScroll: false,
-  tabBarHidden: false,
-  drawUnderTabBar: true
+  navBarHideOnScroll: false
 };
 
 Navigation.startSingleScreenApp({

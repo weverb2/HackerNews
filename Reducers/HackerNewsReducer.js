@@ -1,4 +1,5 @@
 import { createReducer } from "./createReducer";
+import { ActionTypes } from "../Actions/HackerNewsActions";
 
 const initialState = {
   selectedStory: null,
@@ -6,13 +7,12 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  ["STORY_IDS_REQUESTED"](state, action) {
+  [ActionTypes.storyIdsRequested](state, action) {
     const { topStories } = state;
     const newState = {
       ...state,
       topStories: {
         ...topStories,
-        inProgress: true,
         isRefreshing: true,
         ids: [],
         stories: []
@@ -20,20 +20,19 @@ export default createReducer(initialState, {
     };
     return newState;
   },
-  ["STORY_IDS_RECEIVED"](state, action) {
+  [ActionTypes.storyIdsReceived](state, action) {
     const { topStories } = state;
     const newState = {
       ...state,
       topStories: {
         ...topStories,
-        inProgress: false,
         isRefreshing: false,
         ids: action.ids
       }
     };
     return newState;
   },
-  ["STORIES_REQUESTED"](state, action) {
+  [ActionTypes.storiesRequested](state, action) {
     const { topStories } = state;
     const newState = {
       ...state,
@@ -41,7 +40,7 @@ export default createReducer(initialState, {
     };
     return newState;
   },
-  ["STORIES_RECEIVED"](state, action) {
+  [ActionTypes.itemsReceived](state, action) {
     const { topStories } = state;
     const { stories } = topStories;
     const newState = {
@@ -54,7 +53,7 @@ export default createReducer(initialState, {
     };
     return newState;
   },
-  ["STORY_SELECTED"](state, action) {
+  [ActionTypes.storySelected](state, action) {
     const newState = {
       ...state,
       selectedStory: action.story

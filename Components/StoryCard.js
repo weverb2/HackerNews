@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Dark } from "./ThemeStyleSheet";
 
 export default class StoryCard extends Component {
   _onPress = () => {
@@ -7,12 +8,12 @@ export default class StoryCard extends Component {
   };
 
   render() {
-    const { story } = this.props;
+    const { story, theme } = this.props;
     return (
       <TouchableOpacity onPress={this._onPress}>
-        <View style={styles.container}>
-          <Text>{story.title}</Text>
-          <Text style={styles.author}>Posted By: {story.by}</Text>
+        <View style={[styles.container, theme.container]}>
+          <Text style={[theme.text]}>{story.title}</Text>
+          <Text style={[styles.author, theme.text]}>Posted By: {story.by}</Text>
         </View>
       </TouchableOpacity>
     );
