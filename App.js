@@ -4,6 +4,7 @@ import { Navigation } from "react-native-navigation";
 
 import configureStore from "./Store/configureStore";
 import { registerScreens } from "./Screens/registerScreens";
+import { TOP_STORIES, categoryDisplayNames } from "./Actions/HackerNewsActions";
 
 const store = configureStore();
 
@@ -12,7 +13,6 @@ registerScreens(store, Provider);
 export const navigatorStyle = {
   statusBarColor: "#FF6829",
   statusBarTextColorScheme: "light",
-  navigationBarColor: "#FF6829",
   navBarBackgroundColor: "#FF6829",
   navBarTextColor: "white",
   navBarButtonColor: "white",
@@ -22,9 +22,9 @@ export const navigatorStyle = {
 
 Navigation.startSingleScreenApp({
   screen: {
-    screen: "hackernews.StoryList",
+    screen: `hackernews.${TOP_STORIES}`,
     navigatorStyle: navigatorStyle,
-    title: " HackerNews " // Spaces needed or title gets truncated
+    title: categoryDisplayNames[TOP_STORIES]
   },
   appStyle: {
     hideBackButtonTitle: true
@@ -32,8 +32,10 @@ Navigation.startSingleScreenApp({
   drawer: {
     left: {
       screen: "hackernews.LeftDrawer",
-      passProps: {},
       fixedWidth: 500
     }
+  },
+  passProps: {
+    category: TOP_STORIES
   }
 });

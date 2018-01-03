@@ -8,45 +8,61 @@ export const ActionTypes = {
   storySelected: "STORY_SELECTED"
 };
 
-export function storyIdsRequested(pageSize) {
+export const TOP_STORIES = "topstories";
+export const BEST_STORIES = "beststories";
+export const NEW_STORIES = "newstories";
+
+export const categories = [TOP_STORIES, BEST_STORIES, NEW_STORIES];
+
+export const categoryDisplayNames = {
+  topstories: "Top Stories",
+  beststories: "Best Stories",
+  newstories: "New Stories"
+};
+
+export function storyIdsRequested(pageSize, category) {
   return dispatch => {
     dispatch({
-      type: ActionTypes.storyIdsRequested
+      type: ActionTypes.storyIdsRequested,
+      category
     });
 
-    return fetch(`${baseURL}/topstories.json`)
+    return fetch(`${baseURL}/${category}.json`)
       .then(response => response.json())
       .then(ids => {
-        dispatch(storyIdsReceived(ids));
-        dispatch(storiesRequested(ids.slice(0, pageSize)));
+        dispatch(storyIdsReceived(ids, category));
+        dispatch(storiesRequested(ids.slice(0, pageSize), category));
       });
   };
 }
 
-export function storyIdsReceived(ids) {
+export function storyIdsReceived(ids, category) {
   return {
     type: ActionTypes.storyIdsReceived,
-    ids
+    ids,
+    category
   };
 }
 
-export function storiesRequested(ids) {
+export function storiesRequested(ids, category) {
   return dispatch => {
     dispatch({
       type: ActionTypes.storiesRequested,
-      ids
+      ids,
+      category
     });
 
     return Promise.all(ids.map(getItem)).then(stories =>
-      dispatch(itemsReceived(stories))
+      dispatch(itemsReceived(stories, category))
     );
   };
 }
 
-export function itemsReceived(stories) {
+export function itemsReceived(stories, category) {
   return {
     type: ActionTypes.itemsReceived,
-    stories
+    stories,
+    category
   };
 }
 

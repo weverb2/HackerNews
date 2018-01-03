@@ -5,7 +5,11 @@ import ListSeparator from "../Components/ListSeparator";
 import {
   storyIdsRequested,
   storiesRequested,
-  storySelected
+  storySelected,
+  TOP_STORIES,
+  BEST_STORIES,
+  NEW_STORIES,
+  categoryDisplayNames
 } from "../Actions/HackerNewsActions";
 import { toggleTheme } from "../Actions/StyleActions";
 import StoryCard from "../Components/StoryCard";
@@ -24,10 +28,19 @@ class StoryList extends Component {
   };
 
   onNavigatorEvent(event) {
-    if (event.id == "sideMenu") {
+    if (event.type == "DeepLink") {
+      this.props.navigator.resetTo({
+        screen: event.link,
+        animated: true,
+        navigatorStyle,
+        passProps: {
+          category: event.payload
+        },
+        title: categoryDisplayNames[event.payload]
+      });
+    } else if (event.id == "sideMenu") {
       this.props.navigator.toggleDrawer({
-        side: "left",
-        animated: true
+        side: "left"
       });
     }
   }
@@ -112,19 +125,28 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  var content;
+  if (ownProps.category == TOP_STORIES) {
+    content = state.HackerNewsReducer.topstories;
+  } else if (ownProps.category == BEST_STORIES) {
+    content = state.HackerNewsReducer.beststories;
+  } else {
+    content = state.HackerNewsReducer.newstories;
+  }
+
   return {
-    content: state.HackerNewsReducer.topStories,
+    content: content,
     theme: state.StyleReducer.theme
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    requestStoryIds: pageSize => dispatch(storyIdsRequested(pageSize)),
-    requestStories: ids => dispatch(storiesRequested(ids)),
-    storySelected: story => dispatch(storySelected(story)),
-    toggleTheme: () => dispatch(toggleTheme())
+    requestStoryIds: pageSize =>
+      dispatch(storyIdsRequested(pageSize, ownProps.category)),
+    requestStories: ids => dispatch(storiesRequested(ids, ownProps.category)),
+    storySelected: story => dispatch(storySelected(story))
   };
 };
 

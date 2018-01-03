@@ -23,7 +23,6 @@ export default class StoryCard extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5FCFF",
     paddingLeft: 16,
     paddingRight: 16,
     paddingTop: 8,
