@@ -3,7 +3,7 @@ import { Light, Dark } from "../Components/ThemeStyleSheet";
 import { ActionTypes } from "../Actions/StyleActions";
 
 const initialState = {
-  theme: Light
+  theme: Dark
 };
 
 export default createReducer(initialState, {

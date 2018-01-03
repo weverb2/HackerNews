@@ -8,18 +8,28 @@ export const Dark = StyleSheet.create({
     color: "#fafafa"
   },
   safeArea: {
-    backgroundColor: "#FF6829"
+    backgroundColor: "#FF6829",
+    flex: 1
+  },
+  body: {
+    backgroundColor: "#424242",
+    color: "#fafafa"
   }
 });
 
 export const Light = StyleSheet.create({
   container: {
-    backgroundColor: "#eeeeee"
+    backgroundColor: "#F6F6F0"
   },
   text: {
     color: "#212121"
   },
   safeArea: {
-    backgroundColor: "#FF6829"
+    backgroundColor: "#FF6829",
+    flex: 1
+  },
+  body: {
+    backgroundColor: "#F6F6F0",
+    color: "#212121"
   }
 });

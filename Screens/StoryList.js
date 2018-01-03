@@ -9,12 +9,32 @@ import {
 } from "../Actions/HackerNewsActions";
 import { toggleTheme } from "../Actions/StyleActions";
 import StoryCard from "../Components/StoryCard";
+import { navigatorStyle } from "../App";
 
 const pageSize = 20;
 
 class StoryList extends Component {
-  constructor() {
-    super();
+  static navigatorButtons = {
+    leftButtons: [
+      {
+        title: "Menu",
+        id: "sideMenu"
+      }
+    ]
+  };
+
+  onNavigatorEvent(event) {
+    if (event.id == "sideMenu") {
+      this.props.navigator.toggleDrawer({
+        side: "left",
+        animated: true
+      });
+    }
+  }
+
+  constructor(props) {
+    super(props);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     this.state = {
       start: 0,
       end: 20
@@ -54,14 +74,16 @@ class StoryList extends Component {
   _handleStoryPressed(story) {
     this.props.storySelected(story);
     this.props.navigator.push({
-      screen: "hackernews.StoryViewer"
+      screen: "hackernews.StoryViewer",
+      title: story.title,
+      navigatorStyle: navigatorStyle
     });
   }
 
   render() {
     const { content, theme } = this.props;
     return (
-      <SafeAreaView style={[styles.container, theme.safeArea]}>
+      <SafeAreaView style={[styles.safeArea, theme.safeArea]}>
         <FlatList
           style={[theme.container]}
           keyExtractor={this._keyExtractor}
@@ -84,7 +106,7 @@ class StoryList extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
     backgroundColor: "#F5FCFF"
   }

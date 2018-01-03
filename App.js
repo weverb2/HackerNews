@@ -9,7 +9,7 @@ const store = configureStore();
 
 registerScreens(store, Provider);
 
-const navigatorStyle = {
+export const navigatorStyle = {
   statusBarColor: "#FF6829",
   statusBarTextColorScheme: "light",
   navigationBarColor: "#FF6829",
@@ -28,5 +28,12 @@ Navigation.startSingleScreenApp({
   },
   appStyle: {
     hideBackButtonTitle: true
+  },
+  drawer: {
+    left: {
+      screen: "hackernews.LeftDrawer",
+      passProps: {},
+      fixedWidth: 500
+    }
   }
 });
