@@ -55,7 +55,9 @@ class StoryList extends Component {
   }
 
   componentDidMount() {
-    this.props.requestStoryIds(pageSize);
+    if (this.props.content.stories.length == 0) {
+      this.props.requestStoryIds(pageSize);
+    }
   }
 
   _keyExtractor = (item, index) => item.id;
@@ -105,6 +107,7 @@ class StoryList extends Component {
           onEndReached={this._handleEndOfPage}
           onRefresh={this._refreshStories.bind(this)}
           refreshing={content.isRefreshing}
+          ItemSeparatorComponent={ListSeparator}
           renderItem={({ item }) => (
             <StoryCard
               theme={theme}

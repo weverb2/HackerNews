@@ -12,6 +12,7 @@ import { toggleTheme } from "../Actions/StyleActions";
 import { Dark } from "../Components/ThemeStyleSheet";
 import { categoryDisplayNames, categories } from "../Actions/HackerNewsActions";
 import { navigatorStyle } from "../App";
+import ListSeparator from "../Components/ListSeparator";
 
 class NavigationDrawer extends Component {
   onCategorySelected(category) {
@@ -35,6 +36,7 @@ class NavigationDrawer extends Component {
         <View style={styles.drawerItem}>
           <Text style={[styles.drawerItemText, theme.text]}>{displayName}</Text>
         </View>
+        <ListSeparator />
       </TouchableOpacity>
     );
   }
@@ -42,8 +44,11 @@ class NavigationDrawer extends Component {
   render() {
     const { theme } = this.props;
     return (
-      <SafeAreaView style={[styles.safeArea, theme.container]}>
+      <SafeAreaView style={[styles.safeArea, theme.safeArea]}>
         <View style={[styles.container, theme.container]}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>HackerNews</Text>
+          </View>
           {categories.map(category =>
             this.getStoryCategoryRow(category, theme)
           )}
@@ -65,10 +70,19 @@ class NavigationDrawer extends Component {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#FF6829"
   },
   container: {
     flex: 1
+  },
+  header: {
+    height: 44,
+    padding: 8,
+    backgroundColor: "#FF6829"
+  },
+  headerText: {
+    fontSize: 24,
+    color: "white"
   },
   drawerItem: {
     flexDirection: "row",
@@ -76,7 +90,7 @@ const styles = StyleSheet.create({
     padding: 16
   },
   drawerItemText: {
-    fontSize: 20
+    fontSize: 14
   }
 });
 

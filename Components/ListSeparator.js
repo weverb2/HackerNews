@@ -6,6 +6,7 @@ export default (ListSeparator = props => {
     <View
       style={{
         height: 1,
+        marginLeft: 16,
         width: "100%",
         backgroundColor: "#CED0CE"
       }}

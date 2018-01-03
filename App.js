@@ -31,8 +31,7 @@ Navigation.startSingleScreenApp({
   },
   drawer: {
     left: {
-      screen: "hackernews.LeftDrawer",
-      fixedWidth: 500
+      screen: "hackernews.LeftDrawer"
     }
   },
   passProps: {

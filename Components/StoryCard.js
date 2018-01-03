@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import moment from "moment";
+
 import { Dark } from "./ThemeStyleSheet";
 
 export default class StoryCard extends Component {
@@ -12,8 +14,15 @@ export default class StoryCard extends Component {
     return (
       <TouchableOpacity onPress={this._onPress}>
         <View style={[styles.container, theme.container]}>
-          <Text style={[theme.text]}>{story.title}</Text>
-          <Text style={[styles.author, theme.text]}>Posted By: {story.by}</Text>
+          <Text style={[styles.title, theme.text]}>{story.title}</Text>
+          <View style={styles.detail}>
+            <Text style={[styles.author, theme.text]}>
+              Posted By: {story.by}
+            </Text>
+            <Text style={[styles.author, theme.text]}>
+              {moment(story.time, "X").fromNow()}
+            </Text>
+          </View>
         </View>
       </TouchableOpacity>
     );
@@ -28,7 +37,16 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8
   },
+  title: {
+    fontSize: 18,
+    fontWeight: "600"
+  },
   author: {
-    paddingTop: 4
+    paddingTop: 8
+  },
+  detail: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between"
   }
 });
