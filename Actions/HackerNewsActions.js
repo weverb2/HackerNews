@@ -4,7 +4,7 @@ export const ActionTypes = {
   storyIdsRequested: "STORY_IDS_REQUESTED",
   storyIdsReceived: "STORY_IDS_RECEIVED",
   storiesRequested: "STORIES_REQUESTED",
-  itemsReceived: "STORIES_RECEIVED",
+  storiesReceived: "STORIES_RECEIVED",
   storySelected: "STORY_SELECTED"
 };
 
@@ -53,14 +53,14 @@ export function storiesRequested(ids, category) {
     });
 
     return Promise.all(ids.map(getItem)).then(stories =>
-      dispatch(itemsReceived(stories, category))
+      dispatch(storiesReceived(stories, category))
     );
   };
 }
 
-export function itemsReceived(stories, category) {
+export function storiesReceived(stories, category) {
   return {
-    type: ActionTypes.itemsReceived,
+    type: ActionTypes.storiesReceived,
     stories,
     category
   };

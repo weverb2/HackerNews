@@ -49,7 +49,7 @@ export default createReducer(initialState, {
 
     return newState;
   },
-  [ActionTypes.itemsReceived](state, action) {
+  [ActionTypes.storiesReceived](state, action) {
     const innerState = state[action.category];
     const { stories } = innerState;
     const newState = {
